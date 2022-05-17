@@ -3,8 +3,8 @@ FROM rocker/r-ver:4.1.3
 # DeGAUSS container metadata
 ENV degauss_name="h3"
 ENV degauss_version="0.1.0"
-ENV degauss_description="insert short description here that finishes the sentence: This container returns ..."
-# ENV degauss_argument="short description of optional argument [default: 'insert_default_value_here']"
+ENV degauss_description="h3 hierarchical spatial index"
+ENV degauss_argument="resolution [default: 8]"
 
 # add OCI labels based on environment variables too
 LABEL "org.degauss.name"="${degauss_name}"
@@ -24,13 +24,13 @@ RUN apt-get update \
     libgeos-dev \
     libudunits2-dev \
     libproj-dev \
+    libgit2-dev \
     && apt-get clean
 
 COPY renv.lock .
 
-RUN R --quiet -e "renv::restore(repos = c(CRAN = 'https://packagemanager.rstudio.com/all/__linux__/focal/latest'))"
+RUN R --quiet -e "renv::restore()"
 
-# COPY geomarker_data.rds .
 COPY entrypoint.R .
 
 WORKDIR /tmp

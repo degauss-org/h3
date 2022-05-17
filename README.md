@@ -11,24 +11,17 @@ If `my_address_file_geocoded.csv` is a file in the current working directory wit
 docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.1.0 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_h3_0.1.0.csv` with added columns:
+will produce `my_address_file_geocoded_h3_res8_0.1.0.csv` with the added column:
 
-- **`this_geomarker`**: a definition of this geomarker
-- **`that_geomarker`**: a definition of that geomarker
+- **`h3`**: a hierarchical geospatial index
 
 ### Optional Argument
 
-- If this DeGAUSS container takes an optional argument, describe its usage and effects here.
-- Be sure to also update the example output file name with the argument value.
+- The [resolution](https://h3geo.org/docs/core-library/restable) of the assigned h3 grid cell (0 - 15) can be specified and defaults to 8 when not specified.
 
 ## Geomarker Methods
 
-- If needed, put details here about the methods and assumptions used in the geomarker assessment process.
-
-## Geomarker Data
-
-- List how geomarker was created, ideally including any scripts within the repo used to do so or linking to an external repository
-- If applicable, list where geomarker data is stored in S3 using a hyperlink like: [`s3://path/to/h3.rds`](https://geomarker.s3.us-east-2.amazonaws.com/path/to/h3.rds)
+- Find more details about `h3` here: [https://h3geo.org/docs/](https://h3geo.org/docs/)
 
 ## DeGAUSS Details
 
