@@ -32,6 +32,7 @@ COPY renv.lock .
 RUN R --quiet -e "renv::restore()"
 
 COPY entrypoint.R .
+COPY us_h3_3_population_20k_minimum_hex_ids.rds .
 
 WORKDIR /tmp
 

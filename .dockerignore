@@ -4,3 +4,4 @@
 # except what we need
 !/renv.lock
 !/entrypoint.R
+!/us_h3_3_population_20k_minimum_hex_ids.rds

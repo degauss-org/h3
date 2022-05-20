@@ -19,6 +19,16 @@ will produce `my_address_file_geocoded_h3_res8_0.1.0.csv` with the added column:
 
 - The [resolution](https://h3geo.org/docs/core-library/restable) of the assigned h3 grid cell (0 - 15) can be specified and defaults to 8 when not specified.
 
+```sh
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.1.0 my_address_file_geocoded.csv 7
+```
+
+- It is also possible to specify for the h3 **s**afe **h**arbor (`h3_sh`) geohash by specifying `sh` instead of a numeric resolution:
+
+```sh
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.1.0 my_address_file_geocoded.csv sh
+```
+
 ## Geomarker Methods
 
 - Find more details about `h3` here: [https://h3geo.org/docs/](https://h3geo.org/docs/)

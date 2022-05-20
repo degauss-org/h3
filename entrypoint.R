@@ -21,12 +21,30 @@ d <- dht::read_lat_lon_csv(opt$filename, nest_df = TRUE, sf_out = TRUE)
 dht::check_for_column(d$raw_data, "lat", d$raw_data$lat)
 dht::check_for_column(d$raw_data, "lon", d$raw_data$lon)
 
-d$d$h3 <- h3::geo_to_h3(d$d, res = as.numeric(opt$resolution))
+if (!opt$resolution %in% c(1:15, "sh")) {
+  cli::cli_abort("The resolution argument must be a number between 1 and 15 or {.code sh}")
+}
+
+if (opt$resolution == "sh") {
+  h3_sh_key <- local({
+    h3_sh <- readRDS("/app/us_h3_3_population_20k_minimum_hex_ids.rds")
+    h3_sh_split <- strsplit(h3_sh, "-")
+    names(h3_sh_split) <- h3_sh
+    h3_sh_split <- unlist(h3_sh_split)
+    h3_sh_key <- names(h3_sh_split)
+    names(h3_sh_key) <- h3_sh_split
+    h3_sh_key
+  })
+  d$d$h3 <- h3::geo_to_h3(d$d, res = 3)
+  d$d$h3_sh <- h3_sh_key[d$d$h3]
+} else {
+  d$d$h3 <- h3::geo_to_h3(d$d, res = as.numeric(opt$resolution))
+}
 
 ## merge back on .row after unnesting .rows into .row
 dht::write_geomarker_file(
   d = d$d,
   raw_data = d$raw_data,
   filename = opt$filename,
-  argument = paste0("res", opt$resolution)
+  argument = paste0("res_", opt$resolution)
 )
