@@ -21,7 +21,7 @@ d <- dht::read_lat_lon_csv(opt$filename, nest_df = TRUE, sf_out = TRUE)
 dht::check_for_column(d$raw_data, "lat", d$raw_data$lat)
 dht::check_for_column(d$raw_data, "lon", d$raw_data$lon)
 
-d$d$h3 <- h3::geo_to_h3(d$d, res = opt$resolution)
+d$d$h3 <- h3::geo_to_h3(d$d, res = as.numeric(opt$resolution))
 
 ## merge back on .row after unnesting .rows into .row
 dht::write_geomarker_file(
