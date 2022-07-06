@@ -2,7 +2,7 @@ FROM rocker/r-ver:4.1.3
 
 # DeGAUSS container metadata
 ENV degauss_name="h3"
-ENV degauss_version="0.2.0"
+ENV degauss_version="0.3.0"
 ENV degauss_description="h3 hierarchical spatial index"
 ENV degauss_argument="resolution [default: 8]"
 

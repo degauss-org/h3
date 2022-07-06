@@ -4,6 +4,8 @@ dht::greeting()
 
 ## load libraries without messages or warnings
 withr::with_message_sink("/dev/null", library(sf))
+withr::with_message_sink("/dev/null", library(dplyr))
+withr::with_message_sink("/dev/null", library(tidyr))
 
 doc <- "
       Usage:
@@ -28,15 +30,13 @@ if (!opt$resolution %in% c(1:15, "sh")) {
 if (opt$resolution == "sh") {
   h3_sh_key <- local({
     h3_sh <- readRDS("/app/us_h3_3_population_20k_minimum_hex_ids.rds")
-    h3_sh_split <- strsplit(h3_sh, "-")
-    names(h3_sh_split) <- h3_sh
-    h3_sh_split <- unlist(h3_sh_split)
-    h3_sh_key <- names(h3_sh_split)
-    names(h3_sh_key) <- h3_sh_split
+    h3_sh_key <- tibble::tibble(h3_sh = h3_sh) %>%
+      dplyr::mutate(h3_sh_split = strsplit(h3_sh, "-")) %>%
+      tidyr::unnest(h3_sh_split)
     h3_sh_key
   })
   d$d$h3 <- h3::geo_to_h3(d$d, res = 3)
-  d$d$h3_sh <- h3_sh_key[d$d$h3]
+  d$d <- left_join(d$d, h3_sh_key, by = c("h3" = "h3_sh_split"))
 } else {
   d$d$h3 <- h3::geo_to_h3(d$d, res = as.numeric(opt$resolution))
 }
