@@ -8,10 +8,10 @@
 If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat` and `lon`, then the [DeGAUSS command](https://degauss.org/using_degauss.html#DeGAUSS_Commands):
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.2.0 my_address_file_geocoded.csv
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.2.1 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_h3_res8_0.2.0.csv` with the added column:
+will produce `my_address_file_geocoded_h3_res8_0.2.1.csv` with the added column:
 
 - **`h3`**: a hierarchical geospatial index
 
@@ -20,13 +20,13 @@ will produce `my_address_file_geocoded_h3_res8_0.2.0.csv` with the added column:
 - The [resolution](https://h3geo.org/docs/core-library/restable) of the assigned h3 grid cell (0 - 15) can be specified and defaults to 8 when not specified.
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.2.0 my_address_file_geocoded.csv 7
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.2.1 my_address_file_geocoded.csv 7
 ```
 
 - It is also possible to specify for the h3 **s**afe **h**arbor (`h3_sh`) geohash by specifying `sh` instead of a numeric resolution:
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.2.0 my_address_file_geocoded.csv sh
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/h3:0.2.1 my_address_file_geocoded.csv sh
 ```
 
 ## Geomarker Methods
